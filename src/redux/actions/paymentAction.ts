@@ -1,27 +1,27 @@
 import axios from 'axios';
 import { Dispatch } from 'react';
-import { UserInfoData, UserData, DataTotal } from '../models';
+import { PaymentDataTotal } from '../models';
 
-export interface AvailabilityData{
+export interface AvailabilityPaymentData{
 	readonly type: 'ON_AVAILABILITY',
-	payload: DataTotal
+	payload: PaymentDataTotal
 }
 
-export interface DataErrorAction{
+export interface DataErrorPaymentAction{
 	readonly type: 'ON_DATA_ERROR',
 	payload: any
 }
 
-export type UserAction = AvailabilityData | DataErrorAction;
+export type PaymentAction = AvailabilityPaymentData | DataErrorPaymentAction;
 
 //Trigger actions from Components
 
-export const onAvailability = () => {
+export const onPaymentAvailability = () => {
 
-	return async ( dispatch: Dispatch<UserAction> ) => {
+	return async ( dispatch: Dispatch<PaymentAction> ) => {
 
 		try{
-			const response = await axios.get<DataTotal>(`https://servicios.inclubtest.online:2053/api/suscription/all/state/10`);
+			const response = await axios.get<PaymentDataTotal>(`https://servicios.inclubtest.online:2053/api/payment/schedule/vouchers/383`);
 
 
 			if(!response){

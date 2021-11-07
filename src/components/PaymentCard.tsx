@@ -5,32 +5,33 @@ import Moment from 'moment'
 
 const screenWidth = Dimensions.get('screen').width;
 
-interface UserDataProps{
+interface PaymentDataProps{
 	item: UserData;
-	onTap: Function	
 }
 
-const UserCard: React.FC<UserDataProps> = ({item, onTap}) => {
+console.log('aqui');
 
-	const dateStrg = item.userResponseDto['createDate'];
+const PaymentCard: React.FC<PaymentDataProps> = ({item}) => {
+
+	const dateStrg = item.lastPaymentDate;
+	const dateExpire = item.nextExpiration;
+
+	console.log(item);
 
 	return (
-		<TouchableOpacity style={styles.container} onPress={() => onTap(item)}>
+		<View style={styles.container} >
 			<View style={styles.userCar}>
 				<View>
-					<Text>Cliente: {item.userResponseDto['name']} {item.userResponseDto['lastname']}</Text>
+					<Text>Monto Total: {item.packageDetail['price']} </Text>
 				</View>
 				<View>
-					<Text>Fecha Inscripcion: {Moment(dateStrg).format('d MMMM YYYY, H:mma')}</Text>
+					<Text>Fecha de Pago: {Moment(dateStrg).format('d MMMM YYYY, H:mma')}</Text>
 				</View>
 				<View>
-					<Text>Dirección: { item.userResponseDto['address'] }</Text>
-				</View>
-				<View>
-					<Text>Estado: { item.userResponseDto['stateText'] }</Text>
+					<Text>Fecha de Vencimiento:  {Moment(dateExpire).format('d MMMM YYYY, H:mma')}</Text>
 				</View>
 			</View>
-		</TouchableOpacity>
+		</View>
 		)
 }
 
@@ -53,4 +54,4 @@ const styles = StyleSheet.create({
 	}
 });
 
-export {UserCard}
+export {PaymentCard}
